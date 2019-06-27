@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Decentralized Pulse</title>
+  <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+<style>
+  html {
+    height: 100%;
+    /*background:url('images/background2.png') no-repeat center center fixed;*/
+    background-color: #95adbe; no-repeat center center fixed;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }</style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Play&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <!--<a href="index.html"><img src="images/logo.png" width="60px" height="45px" alt="logo"/></a>-->
+    </div>
+      <ul class="navbar">
+          <li><a href="objectives.html">OBJECTIVES</a></li>
+          <li><a href="data.html">DATA</a></li>
+          <li><a href="ipfs.html">IPFS VERSION</a></li>
+          <li><a href="blog.html">BLOG</a></li>
+          <li><a href="links.html">LINKS</a></li>
+      </ul>
+      <div class="logo">
+        <!--<a href="index.html"><img src="images/logo.png" width="60px" height="45px" alt="logo"/></a>-->
+      </div>
+    </nav>
+
+    <div class="main">
+    <a href="index.html"><img src="images/logo.png" width="60px" height="45px" alt="logo"/></a>
+
+
+    <h2>Account Basics</h2>
+
+    <ul class="Account Basics">
+        <li>Creating IAM user for your personal use</li>
+        <li>Set up MFA for your root user, turn off all root user API keys. </li>
+        <li>Set up Billing Alerts for anything over a few dollars.</li>
+        <li>Configure the AWS CLI for your user using API credentials</li>
+    </ul>
+
+    <h2>Web Hosting Basics</h2>
+    <p>* Deploy a EC2 VM and host a simple static web page.</p> 
+    <p>* Take a snapshot of your VM, delete the VM, and deploy a new one from the snapshot. Basically disk backup + disk restore. </p>
+
+
+    <h2>Auto Scaling</h2>
+    <p>* Create an AMI from that VM and put it in an autoscaling group so one VM always exists. </p>
+    <p>* Put a Elastic Load Balancer in front of that VM and load balance between two Availability Zones (one EC2 in each AZ). </p>
+
+
+    <h2>External Data</h2>
+    <p>* Create a DynamoDB table and experiment with loading and retrieving data manually, then do the same via a script on your local machine. </p>
+    <p>* Refactor your static page into your website (Node, PHP, Python, whatever) which reads/updates data from AWS DynamoDB table.</p>
+
+
+    <h2>Web Hosting Platform-as-a-Service</h2>
+    <p>* Retire that simple website and re-deploy it on Elastic Beanstalk. </p>
+    <p>* Create a S3 Static Website Bucket, upload some sample static pages/files/images. Add those assets to your Elastic Beanstalk website. </p>
+    <p>* Register a domain (or re-use and existing one). Set Route53 as the Nameservers and use Route53 for DNS. Make www.yourdomain.com go to your Elastic Beanstalk. Make static.yourdomain.com serve data from the S3 bucket. </p>
+    <p>* Enable SSL for your Static S3 Website.</p>
+    <p>* Enable SSL for your Elastic Beanstalk Website. </p>
+
+
+    <h2>Microservices</h2>
+    <p>* Refactor your EB website into ONLY providing an API. It should only have a POST/GET to update/retrieve that specific data from DynamoDB. Bonus: Make it a simple REST API. Get rid of www.yourdomain.com and serve this EB as api.yourdomain.com </p>
+    <p>* Move most of the UI piece of your EB website into your Static S3 Website and use Javascript/whatever to retrieve the data from your api.yourdomain.com URL on page load. Send data to the EB URL to have it update the DynamoDB. Get rid of static.yourdomain.com and change your S3 bucket to serve from www.yourdomain.com.</p> 
+
+
+    <h2>Serverless</h2>
+    <p>* Write a AWS Lambda function to email you a list of all of the Fortunes in the DynamoDB table every night. Implement Least Privilege security for the Lambda Role.</p>
+    <p>* Refactor the above app into a Serverless app. This is where it get's a little more abstract and you'll have to do a lot of research, experimentation on your own.</p>
+    <p>* The architecture: Static S3 Website Front-End calls API Gateway which executes a Lambda Function which reads/updates data in the DyanmoDB table. </p>
+    <p>* Use your SSL enabled bucket as the primary domain landing page with static content. </p>
+    <p>* Create an AWS API Gateway, use it to forward HTTP requests to an AWS Lambda function that queries the same data from DynamoDB as your EB Microservice. </p>
+    <p>* Your S3 static content should make Javascript calls to the API Gateway and then update the page with the retrieved data. </p>
+    <p>* Once you have the "Get Fortune" API Gateway + Lambda working, do the "New Fortune" API. </p>
+
+
+    <h2>Cost Analysis</h2>
+    <p>* Explore the AWS pricing models and see how pricing is structured for the services you've used. </p>
+    <p>* Answer the following for each of the main architectures you built: </p>
+    <p>* Roughly how much would this have costed for a month? </p>
+    <p>* How would I scale this architecture and how would my costs change? </p>
+    <p>* Architectures </p>
+    <p>* Basic Web Hosting: HA EC2 Instances Serving Static Web Page behind ELB </p>
+    <p>* Microservices: Elastic Beanstalk SSL Website for only API + S3 Static Website for all static content + DynamoDB Table + Route53 + CloudFront SSL </p>
+    <p>* Serverless: Serverless Website using API Gateway + Lambda Functions + DynamoDB + Route53 + CloudFront SSL + S3 Static Website for all static content</p>
+
+    </div>
+<div class="content">
+
+</div>
+
+
+<footer class="footer">
+    <a href="mailto:oulu@protonmail.com"><i class="fa fa-envelope" style="font-size: 30px;"></i></a>
+    <a href="https://github.com/vkajdacsi/DecentralizedPulse-Website"><i class="fab fa-github" style="font-size: 30px;"></i></a>
+    <a href="https://www.linkedin.com/in/viktor-kajd%C3%A1csi-14200b109"><i class="fab fa-linkedin" style="font-size: 30px;"></i></a>
+    <p style="font-size: 10px;">Copyright © <script>document.write(new Date().getFullYear());</script> | All rights Reserved</p>
+    <p style="font-size: 10px;">Designed by <a href="https://www.behance.net/vadgabor" ">Gabor Vad</a> and Me</p>
+</footer>
+
+<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
